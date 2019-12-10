@@ -67,11 +67,13 @@ If you need to use curly braces {} in the definition of the shell command, you c
 """
 
 from typing import List, Dict
+from types import SimpleNamespace
 import re
 from os.path import dirname
 from  os import makedirs
 
 from gwf import Workflow
+from gwf.utils import is_valid_name
 
 def _remove_file_extensions_in_format_string( fmt_string ):
     """
@@ -180,21 +182,6 @@ def _extract_inputs_and_outputs( target_name, command_string, outdir_prefix, key
     return inputs, outputs, new_command_string
 
 
-class _DictToAttr:
-    """
-    A helper class that creates objects whose attributes represent the key-value
-    relations from a dictionary.
-
-    >>> d = {'a': 4, 'b': 5 }
-    >>> attributes = _DictToAttr( d )
-    >>> attributes.a
-    4
-    >>> attributes.b
-    5
-    """
-    def __init__( self, d ):
-        self.__dict__ = d
-
 
 class TargetGroup:
     def __init__( self, gwf, label_prefix, outdir_prefix ):
@@ -265,6 +252,6 @@ class TargetGroup:
             outputs = list( outputs.values() ),
             **( gwf_options or {} )
         ) << cmd
-        setattr( self, target_name, _DictToAttr( outputs ) )
+        setattr( self, target_name, SimpleNamespace( **outputs ) )
         return outputs
 
