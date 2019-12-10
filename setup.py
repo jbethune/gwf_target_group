@@ -6,9 +6,9 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="gwf_target_group",
-    version="1.0.0",
+    version="1.0.1",
     author="Jörn Bethune",
-    description="A wrapper for GWF for easy generation of output file paths",
+    description="A wrapper for gwf for easy generation of output file paths",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jbethune/gwf_target_group",
@@ -19,5 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
-    install_requires=['gwf'],
+    install_requires=['gwf>=1.6.0'],
 )

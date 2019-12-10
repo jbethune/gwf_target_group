@@ -230,8 +230,14 @@ class TargetGroup:
         :returns: A dictionary of output files
         """
 
+        full_target_name = self._label_prefix + '.' + target_name
+
         if target_name.startswith( '_' ):
-            raise ValueError( 'The target_name must not start with an "_". target_name=' + target_name )
+            raise ValueError( f'The target_name {target_name} must not start with an "_". target_name=' + target_name )
+        elif '.' in target_name:
+            raise ValueError( f'The target_name {target_name} contains a dot (.)' )
+        elif not is_valid_name( full_target_name ):
+            raise ValueError( f"The target name \"{full_target_name}\" does not conform to gwf's naming conventions https://docs.gwf.app/reference/api/#gwf.Target" )
 
         for k, v in keywords.items():
             if type( v ) is not str:
@@ -247,7 +253,7 @@ class TargetGroup:
         cmd = new_command_string.format( **inputs, **outputs )
         #print( cmd )
         self._gwf.target(
-            self._label_prefix + '.' + target_name,
+            full_target_name,
             inputs = list( inputs.values() ),
             outputs = list( outputs.values() ),
             **( gwf_options or {} )
