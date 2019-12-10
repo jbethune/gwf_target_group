@@ -129,5 +129,5 @@ mouse.genome_file = 'data/genomes/mouse.fa'
 # and then define the analysis for both datasets
 define_analysis( human )
 define_analysis( mouse )
-        '
+
 ```
