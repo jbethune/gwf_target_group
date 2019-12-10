@@ -18,6 +18,9 @@ setuptools.setup(
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: OS Independent",
     ],
+    project_urls={
+        'Source': 'https://github.com/jbethune/gwf_target_group'
+    },
     python_requires='>=3.6',
     install_requires=['gwf>=1.6.0'],
 )
