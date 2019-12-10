@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 """
-Provide an even higher-level API to GWF.
+Provide an even higher-level API to gwf.
 
-GWF is great for file dependency resolution. But you still have to define the
+gwf is great for file dependency resolution. But you still have to define the
 file paths yourself and that's quite a bit of manual work. This API tries to
 automatically give sensible names to files and directories for you, so that you
 can focus on crafting shell commands that produce results and feed into each
 other.
 
 
-The idea is to create an initial GWF workflow object like so:
+The idea is to create an initial gwf workflow object like so:
 
 >>> gwf = Workflow() # insert any parameters you need to the constructor
 
@@ -199,7 +199,7 @@ class _DictToAttr:
 class TargetGroup:
     def __init__( self, gwf, label_prefix, outdir_prefix ):
         """
-        A group of GWF targets with a common target-name-prefix and a common
+        A group of gwf targets with a common target-name-prefix and a common
         output file prefix.
 
         Objects of this class will also have an attribute for every gwf target
@@ -234,7 +234,7 @@ class TargetGroup:
 
     def __call__( self, target_name, command_string, gwf_options = None, **keywords ):
         """
-        Use objects of this class like a function to define new GWF targets.
+        Use objects of this class like a function to define new gwf targets.
 
         :param target_name: suffix of target's name (prefix is `label_prefix`)
         :param command_string: Unevaluated f-string with slots for input files and output files
