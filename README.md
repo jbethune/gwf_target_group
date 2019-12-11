@@ -68,6 +68,9 @@ pip install gwf_target_group
 
 ## Advanced usage
 
+You can read about the technical details by invoking `help(
+gwf_target_group.TargetGroup )` in your python console.
+
 ### Passing gwf options
 
 If you need to fine-tune the options for a gwf job, you can use the
@@ -131,3 +134,45 @@ define_analysis( human )
 define_analysis( mouse )
         '
 ```
+
+### Format-strings where not all parameters are files
+
+When you have format strings that include thresholds, numeric parameters or
+anything else that is not a file, you have several options:
+
+1. Use classic Python format strings with `%()s` and `locals()`
+
+	```
+	threshold = 20
+	target_group(
+		'my_target',
+		'run_command --parameter %(threshold)s {input_file} > {output_file}' % locals(),
+		input_file = 'input.txt'
+	)
+	```
+
+2. String concatenation
+
+	```
+    threshold = 20
+	target_group(
+		'my_target',
+		'run_command --threshold ' + str(threshold) + '{input_file} > {output_file}' % locals(),
+		input_file = 'input.txt'
+	)
+	```
+
+3. Format string escapes
+
+	Note the `f` in front of the format string and the double curly braces to
+	escape the curly braces.
+	```
+	threshold = 20
+	target_group(
+		'my_target',
+		f'run_command --parameter {threshold} {{input_file}} > {{output_file}}',
+		input_file = 'input.txt'
+	)
+	```
+
+
